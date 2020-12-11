@@ -8,12 +8,12 @@ namespace JWTAuthentication.Data.Abstract.Repositories.Generic
 {
     public interface IGenericRepository<TEntity> where TEntity : class, IEntity, new()
     {
-        Task<IEnumerable<TEntity>> GetAll();
-        Task<IEnumerable<TEntity>> GetAllByFilter(Expression<Func<TEntity, bool>> filter);
-        Task<TEntity> GetById(int id);
-        Task<TEntity> GetByFilter(Expression<Func<TEntity, bool>> filter);
-        Task Add(TEntity entity);
-        Task Update(TEntity entity);
-        Task Remove(TEntity entity);
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<IEnumerable<TEntity>> GetAllByFilterAsync(Expression<Func<TEntity, bool>> filter);
+        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity> GetByFilterAsync(Expression<Func<TEntity, bool>> filter);
+        Task AddAsync(TEntity entity);
+        Task UpdateAsync(TEntity entity);
+        Task RemoveAsync(TEntity entity);
     }
 }

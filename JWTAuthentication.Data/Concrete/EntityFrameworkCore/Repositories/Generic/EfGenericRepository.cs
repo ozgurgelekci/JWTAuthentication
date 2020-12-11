@@ -21,40 +21,40 @@ namespace JWTAuthentication.Data.Concrete.EntityFrameworkCore.Repositories.Gener
             _dbSet = context.Set<TEntity>();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             await using var context = new JwtDbContext();
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllByFilter(Expression<Func<TEntity, bool>> filter)
+        public async Task<IEnumerable<TEntity>> GetAllByFilterAsync(Expression<Func<TEntity, bool>> filter)
         {
             return await _dbSet.Where(filter).ToListAsync();
         }
 
-        public async Task<TEntity> GetById(int id)
+        public async Task<TEntity> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task<TEntity> GetByFilter(Expression<Func<TEntity, bool>> filter)
+        public async Task<TEntity> GetByFilterAsync(Expression<Func<TEntity, bool>> filter)
         {
             return await _dbSet.FirstOrDefaultAsync(filter);
         }
 
-        public async Task Add(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async Task Update(TEntity entity)
+        public async Task UpdateAsync(TEntity entity)
         {
             _dbSet.Update(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async Task Remove(TEntity entity)
+        public async Task RemoveAsync(TEntity entity)
         {
             _dbSet.Remove(entity);
             await _context.SaveChangesAsync();

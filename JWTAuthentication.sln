@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTAuthentication.Entities", "JWTAuthentication.Entities\JWTAuthentication.Entities.csproj", "{24397225-171C-4A1C-AE53-EEAF5B6F8C4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JWTAuthentication.Entities", "JWTAuthentication.Entities\JWTAuthentication.Entities.csproj", "{24397225-171C-4A1C-AE53-EEAF5B6F8C4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTAuthentication.Data", "JWTAuthentication.Data\JWTAuthentication.Data.csproj", "{71E88678-8440-43D1-B505-BE26175885E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JWTAuthentication.Data", "JWTAuthentication.Data\JWTAuthentication.Data.csproj", "{71E88678-8440-43D1-B505-BE26175885E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTAuthentication.Services", "JWTAuthentication.Business\JWTAuthentication.Services.csproj", "{46375F35-7744-4A9D-988B-7C2934D9E3BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTAuthentication.WebApi", "JWTAuthentication.WebApi\JWTAuthentication.WebApi.csproj", "{17ECC9CF-1537-4BC6-9A13-B14121993568}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{71E88678-8440-43D1-B505-BE26175885E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71E88678-8440-43D1-B505-BE26175885E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71E88678-8440-43D1-B505-BE26175885E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46375F35-7744-4A9D-988B-7C2934D9E3BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46375F35-7744-4A9D-988B-7C2934D9E3BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46375F35-7744-4A9D-988B-7C2934D9E3BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46375F35-7744-4A9D-988B-7C2934D9E3BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17ECC9CF-1537-4BC6-9A13-B14121993568}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17ECC9CF-1537-4BC6-9A13-B14121993568}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17ECC9CF-1537-4BC6-9A13-B14121993568}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17ECC9CF-1537-4BC6-9A13-B14121993568}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
