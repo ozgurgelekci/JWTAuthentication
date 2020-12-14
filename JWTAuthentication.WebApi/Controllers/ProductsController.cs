@@ -12,11 +12,11 @@ namespace JWTAuthentication.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Products : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
 
-        public Products(IProductService productService)
+        public ProductsController(IProductService productService)
         {
             _productService = productService;
         }
