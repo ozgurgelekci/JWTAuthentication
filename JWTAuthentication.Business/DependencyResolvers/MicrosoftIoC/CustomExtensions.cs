@@ -49,11 +49,6 @@ namespace JWTAuthentication.Services.DependencyResolvers.MicrosoftIoC
 
             #endregion
 
-            #region Fluent Validation
-
-
-
-            #endregion
         }
     }
 }
