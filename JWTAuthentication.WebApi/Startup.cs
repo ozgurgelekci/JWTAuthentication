@@ -1,6 +1,11 @@
+using AutoMapper;
+using FluentValidation.AspNetCore;
+using JWTAuthentication.Data.Concrete.EntityFrameworkCore.Contexts;
 using JWTAuthentication.Services.DependencyResolvers.MicrosoftIoC;
+using JWTAuthentication.WebApi.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,10 +24,26 @@ namespace JWTAuthentication.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddScoped(typeof(NotFoundFilter<>));
+
 
             // Custom Extension for Dependency Inception
             services.AddDependencies();
+
+            services.AddDbContext<JwtDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration["ConnectionString:SqlConStr"].ToString(),
+                    o => o.MigrationsAssembly("JWTAuthentication.Data"));
+            });
+
+            services.AddControllers().AddFluentValidation(fv =>
+            {
+                fv.RegisterValidatorsFromAssemblyContaining<Startup>();
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

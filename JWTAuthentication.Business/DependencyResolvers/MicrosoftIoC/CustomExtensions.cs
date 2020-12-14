@@ -48,6 +48,12 @@ namespace JWTAuthentication.Services.DependencyResolvers.MicrosoftIoC
             serviceCollection.AddScoped<IAppUserRoleService, AppUserRoleService>();
 
             #endregion
+
+            #region Fluent Validation
+
+
+
+            #endregion
         }
     }
 }

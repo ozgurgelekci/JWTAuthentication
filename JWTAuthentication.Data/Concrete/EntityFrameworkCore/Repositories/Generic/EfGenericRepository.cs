@@ -23,7 +23,6 @@ namespace JWTAuthentication.Data.Concrete.EntityFrameworkCore.Repositories.Gener
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            await using var context = new JwtDbContext();
             return await _dbSet.ToListAsync();
         }
 

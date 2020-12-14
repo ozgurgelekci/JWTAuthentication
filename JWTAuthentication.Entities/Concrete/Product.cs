@@ -1,4 +1,5 @@
-﻿using JWTAuthentication.Entities.Abstract;
+﻿using System;
+using JWTAuthentication.Entities.Abstract;
 
 namespace JWTAuthentication.Entities.Concrete
 {
@@ -6,5 +7,6 @@ namespace JWTAuthentication.Entities.Concrete
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

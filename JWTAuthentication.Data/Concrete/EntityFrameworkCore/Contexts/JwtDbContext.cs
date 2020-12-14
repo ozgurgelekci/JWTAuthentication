@@ -6,9 +6,9 @@ namespace JWTAuthentication.Data.Concrete.EntityFrameworkCore.Contexts
 {
     public class JwtDbContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public JwtDbContext(DbContextOptions<JwtDbContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=JwtDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
