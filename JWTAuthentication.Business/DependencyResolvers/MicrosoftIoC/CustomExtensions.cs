@@ -1,11 +1,16 @@
-﻿using JWTAuthentication.Data.Abstract.Repositories.Entity;
+﻿using FluentValidation;
+using JWTAuthentication.Data.Abstract.Repositories.Entity;
 using JWTAuthentication.Data.Abstract.Repositories.Generic;
 using JWTAuthentication.Data.Concrete.EntityFrameworkCore.Repositories.Entity;
 using JWTAuthentication.Data.Concrete.EntityFrameworkCore.Repositories.Generic;
+using JWTAuthentication.Data.UnitOfWorks.Abstract;
+using JWTAuthentication.Data.UnitOfWorks.Concrete;
+using JWTAuthentication.Entities.DTOs.Product;
 using JWTAuthentication.Services.Abstract.Entity;
 using JWTAuthentication.Services.Abstract.Generic;
 using JWTAuthentication.Services.Concrete.Entity;
 using JWTAuthentication.Services.Concrete.Generic;
+using JWTAuthentication.Services.ValidationRules.FluentValidation.Product;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace JWTAuthentication.Services.DependencyResolvers.MicrosoftIoC
@@ -49,6 +54,17 @@ namespace JWTAuthentication.Services.DependencyResolvers.MicrosoftIoC
 
             #endregion
 
+            #region UnitOfWork
+
+            serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            #endregion
+
+            #region Fluent Validation
+
+            serviceCollection.AddSingleton<IValidator<ProductDto>, ProductDtoValidator>();
+
+            #endregion
         }
     }
 }

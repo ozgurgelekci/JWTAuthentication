@@ -8,8 +8,8 @@ namespace JWTAuthentication.Services.Abstract.Generic
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(int id);
-        Task AddAsync(TEntity entity);
-        Task UpdateAsync(TEntity entity);
-        Task RemoveAsync(TEntity entity);
+        Task<TEntity> AddAsync(TEntity entity);
+        TEntity Update(TEntity entity);
+        void Remove(TEntity entity);
     }
 }

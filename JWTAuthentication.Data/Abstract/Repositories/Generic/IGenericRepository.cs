@@ -13,7 +13,7 @@ namespace JWTAuthentication.Data.Abstract.Repositories.Generic
         Task<TEntity> GetByIdAsync(int id);
         Task<TEntity> GetByFilterAsync(Expression<Func<TEntity, bool>> filter);
         Task AddAsync(TEntity entity);
-        Task UpdateAsync(TEntity entity);
-        Task RemoveAsync(TEntity entity);
+        TEntity Update(TEntity entity);
+        void Remove(TEntity entity);
     }
 }

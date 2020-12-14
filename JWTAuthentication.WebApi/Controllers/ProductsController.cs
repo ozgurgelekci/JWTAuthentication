@@ -40,15 +40,15 @@ namespace JWTAuthentication.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ProductDto productDto)
         {
-            await _productService.AddAsync(_mapper.Map<Product>(productDto));
-            return Created("", productDto);
+            var newProduct = await _productService.AddAsync(_mapper.Map<Product>(productDto));
+            return Created("", _mapper.Map<ProductDto>(newProduct));
         }
 
         [ValidationFilter]
         [HttpPut]
-        public async Task<IActionResult> Update(ProductDto productDto)
+        public IActionResult Update(ProductDto productDto)
         {
-            await _productService.UpdateAsync(_mapper.Map<Product>(productDto));
+            _productService.Update(_mapper.Map<Product>(productDto));
             return NoContent();
         }
 
@@ -57,7 +57,7 @@ namespace JWTAuthentication.WebApi.Controllers
         public IActionResult Delete(int id)
         {
             var product = _productService.GetByIdAsync(id).Result;
-            _productService.RemoveAsync(product);
+            _productService.Remove(product);
             return NoContent();
         }
     }

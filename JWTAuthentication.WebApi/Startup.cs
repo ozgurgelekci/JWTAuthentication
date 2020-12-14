@@ -5,6 +5,7 @@ using JWTAuthentication.Services.DependencyResolvers.MicrosoftIoC;
 using JWTAuthentication.WebApi.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +29,6 @@ namespace JWTAuthentication.WebApi
 
             services.AddScoped(typeof(NotFoundFilter<>));
 
-
             // Custom Extension for Dependency Inception
             services.AddDependencies();
 
@@ -38,12 +38,12 @@ namespace JWTAuthentication.WebApi
                     o => o.MigrationsAssembly("JWTAuthentication.Data"));
             });
 
-            services.AddControllers().AddFluentValidation(fv =>
+            services.AddControllersWithViews().AddFluentValidation();
+
+            services.Configure<ApiBehaviorOptions>(options =>
             {
-                fv.RegisterValidatorsFromAssemblyContaining<Startup>();
+                options.SuppressModelStateInvalidFilter = true;
             });
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

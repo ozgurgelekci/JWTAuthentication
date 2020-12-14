@@ -44,19 +44,17 @@ namespace JWTAuthentication.Data.Concrete.EntityFrameworkCore.Repositories.Gener
         public async Task AddAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(TEntity entity)
+        public TEntity Update(TEntity entity)
         {
-            _dbSet.Update(entity);
-            await _context.SaveChangesAsync();
+            _context.Entry(entity).State = EntityState.Modified;
+            return entity;
         }
 
-        public async Task RemoveAsync(TEntity entity)
+        public void Remove(TEntity entity)
         {
             _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
         }
     }
 }
