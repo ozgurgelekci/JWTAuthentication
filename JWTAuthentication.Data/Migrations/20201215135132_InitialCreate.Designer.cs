@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JWTAuthentication.Data.Migrations
 {
     [DbContext(typeof(JwtDbContext))]
-    [Migration("20201214132952_IsDeletedColumnInProduct")]
-    partial class IsDeletedColumnInProduct
+    [Migration("20201215135132_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,6 +38,18 @@ namespace JWTAuthentication.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("AppRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Member"
+                        });
                 });
 
             modelBuilder.Entity("JWTAuthentication.Entities.Concrete.AppUser", b =>
@@ -67,6 +79,29 @@ namespace JWTAuthentication.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("AppUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FullName = "User 1",
+                            Password = "1",
+                            UserName = "User1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FullName = "User 2",
+                            Password = "1",
+                            UserName = "User2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FullName = "User 3",
+                            Password = "1",
+                            UserName = "User3"
+                        });
                 });
 
             modelBuilder.Entity("JWTAuthentication.Entities.Concrete.AppUserRole", b =>
@@ -90,6 +125,26 @@ namespace JWTAuthentication.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("AppUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AppRoleId = 1,
+                            AppUserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AppRoleId = 2,
+                            AppUserId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AppRoleId = 1,
+                            AppUserId = 3
+                        });
                 });
 
             modelBuilder.Entity("JWTAuthentication.Entities.Concrete.Product", b =>
@@ -110,6 +165,26 @@ namespace JWTAuthentication.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsDeleted = false,
+                            Name = "Pencil"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsDeleted = true,
+                            Name = "Axe"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsDeleted = false,
+                            Name = "Orange"
+                        });
                 });
 
             modelBuilder.Entity("JWTAuthentication.Entities.Concrete.AppUserRole", b =>

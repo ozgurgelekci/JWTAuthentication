@@ -11,6 +11,9 @@ namespace JWTAuthentication.Data.UnitOfWorks.Concrete
         private readonly JwtDbContext _context;
 
         private EfProductRepository _productRepository;
+        private EfAppUserRepository _appUserRepository;
+        private EfAppRoleRepository _appRoleRepository;
+        private EfAppUserRoleRepository _appUserRoleRepository;
 
         public UnitOfWork(JwtDbContext context)
         {
@@ -18,6 +21,10 @@ namespace JWTAuthentication.Data.UnitOfWorks.Concrete
         }
 
         public IProductRepository Product => _productRepository ??= new EfProductRepository(_context);
+        public IAppUserRepository AppUser => _appUserRepository ??= new EfAppUserRepository(_context);
+        public IAppRoleRepository AppRole => _appRoleRepository ??= new EfAppRoleRepository(_context);
+        public IAppUserRoleRepository AppUserRole => _appUserRoleRepository ??= new EfAppUserRoleRepository(_context);
+
         public async Task CommitAsync()
         {
             await _context.SaveChangesAsync();

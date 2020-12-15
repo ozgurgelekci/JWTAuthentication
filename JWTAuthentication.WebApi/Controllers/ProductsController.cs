@@ -5,6 +5,7 @@ using JWTAuthentication.Entities.Concrete;
 using JWTAuthentication.Entities.DTOs.Product;
 using JWTAuthentication.Services.Abstract.Entity;
 using JWTAuthentication.WebApi.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JWTAuthentication.WebApi.Controllers
@@ -22,6 +23,7 @@ namespace JWTAuthentication.WebApi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Member")]
         public async Task<IActionResult> GetAll()
         {
             var products = await _productService.GetAllAsync();
@@ -30,6 +32,7 @@ namespace JWTAuthentication.WebApi.Controllers
 
         [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetById(int id)
         {
             var product = await _productService.GetByIdAsync(id);
@@ -38,6 +41,7 @@ namespace JWTAuthentication.WebApi.Controllers
 
         [ValidationFilter]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add(ProductDto productDto)
         {
             var newProduct = await _productService.AddAsync(_mapper.Map<Product>(productDto));
@@ -46,6 +50,7 @@ namespace JWTAuthentication.WebApi.Controllers
 
         [ValidationFilter]
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public IActionResult Update(ProductDto productDto)
         {
             _productService.Update(_mapper.Map<Product>(productDto));
@@ -54,6 +59,7 @@ namespace JWTAuthentication.WebApi.Controllers
 
         [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             var product = _productService.GetByIdAsync(id).Result;

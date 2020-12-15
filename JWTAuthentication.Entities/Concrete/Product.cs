@@ -1,5 +1,4 @@
-﻿using System;
-using JWTAuthentication.Entities.Abstract;
+﻿using JWTAuthentication.Entities.Abstract;
 
 namespace JWTAuthentication.Entities.Concrete
 {

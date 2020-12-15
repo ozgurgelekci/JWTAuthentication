@@ -5,7 +5,10 @@ namespace JWTAuthentication.Data.UnitOfWorks.Abstract
 {
     public interface IUnitOfWork
     {
-        IProductRepository Product { get; }
+        public IProductRepository Product { get; }
+        public IAppUserRepository AppUser { get; }
+        public IAppRoleRepository AppRole { get; }
+        public IAppUserRoleRepository AppUserRole { get; }
 
         Task CommitAsync();
         void Commit();

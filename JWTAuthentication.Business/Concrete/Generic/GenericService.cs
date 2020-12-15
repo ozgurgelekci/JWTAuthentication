@@ -11,7 +11,7 @@ namespace JWTAuthentication.Services.Concrete.Generic
     public class GenericService<TEntity> : IGenericService<TEntity> where TEntity : class, IEntity, new()
     {
         private readonly IGenericRepository<TEntity> _genericRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        public readonly IUnitOfWork _unitOfWork;
 
         public GenericService(IGenericRepository<TEntity> genericRepository, IUnitOfWork unitOfWork)
         {

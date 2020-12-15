@@ -40,7 +40,8 @@ namespace JWTAuthentication.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,6 +73,50 @@ namespace JWTAuthentication.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AppRoles",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "Member" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AppUsers",
+                columns: new[] { "Id", "FullName", "Password", "UserName" },
+                values: new object[,]
+                {
+                    { 1, "User 1", "1", "User1" },
+                    { 2, "User 2", "1", "User2" },
+                    { 3, "User 3", "1", "User3" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "IsDeleted", "Name" },
+                values: new object[,]
+                {
+                    { 1, false, "Pencil" },
+                    { 2, true, "Axe" },
+                    { 3, false, "Orange" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AppUserRoles",
+                columns: new[] { "Id", "AppRoleId", "AppUserId" },
+                values: new object[] { 1, 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "AppUserRoles",
+                columns: new[] { "Id", "AppRoleId", "AppUserId" },
+                values: new object[] { 2, 2, 2 });
+
+            migrationBuilder.InsertData(
+                table: "AppUserRoles",
+                columns: new[] { "Id", "AppRoleId", "AppUserId" },
+                values: new object[] { 3, 1, 3 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppRoles_Name",

@@ -1,4 +1,5 @@
 ﻿using JWTAuthentication.Data.Concrete.EntityFrameworkCore.Configurations;
+using JWTAuthentication.Data.Seeds;
 using JWTAuthentication.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,11 @@ namespace JWTAuthentication.Data.Concrete.EntityFrameworkCore.Contexts
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
             modelBuilder.ApplyConfiguration(new AppUserRoleConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
+
+            modelBuilder.ApplyConfiguration(new AppUserSeed());
+            modelBuilder.ApplyConfiguration(new AppRoleSeed());
+            modelBuilder.ApplyConfiguration(new AppUserRoleSeed());
+            modelBuilder.ApplyConfiguration(new ProductSeed());
         }
 
         public DbSet<AppUser> AppUsers { get; set; }

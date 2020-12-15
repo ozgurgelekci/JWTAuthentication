@@ -1,8 +1,11 @@
+using System;
+using System.Text;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using JWTAuthentication.Data.Concrete.EntityFrameworkCore.Contexts;
 using JWTAuthentication.Services.DependencyResolvers.MicrosoftIoC;
 using JWTAuthentication.WebApi.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace JWTAuthentication.WebApi
 {
@@ -34,9 +38,25 @@ namespace JWTAuthentication.WebApi
 
             services.AddDbContext<JwtDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionString:SqlConStr"].ToString(),
+                options.UseSqlServer(Configuration["ConnectionString:SqlConStr"],
                     o => o.MigrationsAssembly("JWTAuthentication.Data"));
             });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["JwtOptions:Issuer"],
+                        ValidAudience = Configuration["JwtOptions:Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtOptions:Key"])),
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
 
             services.AddControllersWithViews().AddFluentValidation();
 
@@ -56,6 +76,7 @@ namespace JWTAuthentication.WebApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
