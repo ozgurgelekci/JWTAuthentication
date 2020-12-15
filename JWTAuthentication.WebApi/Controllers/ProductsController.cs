@@ -22,6 +22,12 @@ namespace JWTAuthentication.WebApi.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// All Products
+        /// </summary>
+        /// <remarks>Ex: api/products</remarks>
+        /// <returns></returns>
+        [Produces("application/json")]
         [HttpGet]
         [Authorize(Roles = "Admin,Member")]
         public async Task<IActionResult> GetAll()
@@ -30,6 +36,12 @@ namespace JWTAuthentication.WebApi.Controllers
             return Ok(_mapper.Map<IEnumerable<ProductDto>>(products));
         }
 
+        /// <summary>
+        /// Get product for 'id'
+        /// </summary>
+        /// <param name="id">productId</param>
+        /// <returns></returns>
+        [Produces("application/json")]
         [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin")]
@@ -39,6 +51,16 @@ namespace JWTAuthentication.WebApi.Controllers
             return Ok(_mapper.Map<ProductDto>(product));
         }
 
+        /// <summary>
+        /// Add product
+        /// </summary>
+        /// <remarks>
+        /// Ex: {"Name":"Product Name"}
+        /// </remarks>
+        /// <param name="productDto"></param>
+        /// <returns></returns>
+        [Produces("application/json")]
+        [Consumes("application/json")]
         [ValidationFilter]
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -48,6 +70,16 @@ namespace JWTAuthentication.WebApi.Controllers
             return Created("", _mapper.Map<ProductDto>(newProduct));
         }
 
+        /// <summary>
+        /// Update product
+        /// </summary>
+        /// <remarks>
+        /// Ex: {"Id":1, "Name":"Product Name"}
+        /// </remarks>
+        /// <param name="productDto"></param>
+        /// <returns></returns>
+        [Produces("application/json")]
+        [Consumes("application/json")]
         [ValidationFilter]
         [HttpPut]
         [Authorize(Roles = "Admin")]
@@ -57,6 +89,13 @@ namespace JWTAuthentication.WebApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete product
+        /// </summary>
+        /// <param name="id">productId</param>
+        /// <returns></returns>
+        [Produces("application/json")]
+        [Consumes("application/json")]
         [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]

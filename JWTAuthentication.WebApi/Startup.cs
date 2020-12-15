@@ -1,9 +1,12 @@
 using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using JWTAuthentication.Data.Concrete.EntityFrameworkCore.Contexts;
 using JWTAuthentication.Services.DependencyResolvers.MicrosoftIoC;
+using JWTAuthentication.WebApi.Extensions;
 using JWTAuthentication.WebApi.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace JWTAuthentication.WebApi
 {
@@ -58,6 +62,29 @@ namespace JWTAuthentication.WebApi
                     };
                 });
 
+            #region Swagger Xml 
+
+            services.AddSwaggerGen(gen =>
+            {
+                gen.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "V1",
+                    Title = ".NET Core API with Jwt",
+                    Description = "api documentation",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Özgür Gelekçi",
+                        Email = "ozgurgelekci@gmail.com",
+                        Url = new Uri("http://www.ozgurgelekci.com")
+                    }
+                });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                gen.IncludeXmlComments(xmlPath);
+            });
+
+            #endregion
+
             services.AddControllersWithViews().AddFluentValidation();
 
             services.Configure<ApiBehaviorOptions>(options =>
@@ -73,6 +100,19 @@ namespace JWTAuthentication.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            #region Swagger
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", ".NET Core API with Jwt");
+            });
+
+            #endregion
+
+            // Custom Exception Handler
+            app.UseCustomException();
 
             app.UseRouting();
 
